@@ -89,6 +89,10 @@
                     }
                 </td>
                 <td>
+                    <!-- Update button with a link to the User Update Page -->
+                    <a asp-page="./User" asp-route-id="@user.UserId">Update</a>
+                </td>
+                <td>
                     <form method="post" asp-page-handler="Delete" asp-route-id="@user.UserId">
                         <button class="btn btn-danger">Delete</button>
                     </form>

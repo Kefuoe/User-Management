@@ -25,6 +25,9 @@ namespace UserManagement.Pages
         [BindProperty]
         public List<int> SelectedPermissionIds { get; set; } 
 
+        [BindProperty]
+        public User UserToUpdate { get; set; }
+
 
         public Users(UserService service)
         {
@@ -37,13 +40,29 @@ namespace UserManagement.Pages
             PermissionItems = _service.GetPermissionItems();
 
         }
-        public async Task OnGet()
+
+        [IgnoreAntiforgeryToken]
+        public async Task OnGetAsync()
         {
             //UserList = _service.GetUsers();
             UserList = await _service.GetAllUsersAsync();
             Console.WriteLine($"UserList Count: {UserList?.Count}");
             ViewData["UserCount"] = UserList?.Count;
             OnGetGroups();
+        }
+
+        public IActionResult OnGetById(int id)
+        {
+            UserToUpdate = _service.GetUserById(id);
+
+            if (UserToUpdate == null)
+            {
+                return RedirectToPage("./Users");
+            }
+
+            _ = OnGetAsync(); // Call the asynchronous method to get the user list and other data
+
+            return Page();
         }
 
         public IActionResult OnPostDelete(int id)
@@ -79,6 +98,14 @@ namespace UserManagement.Pages
             var usersPerGroupCount = _service.GetUsersPerGroupCount();
             return new JsonResult(usersPerGroupCount);
         }
+
+      
+        public IActionResult OnPostUpdateUser()
+        {
+            // Validate and update user logic will be handled in UsersModel
+            return RedirectToPage("./Users");
+        }
+
     }
 
 }

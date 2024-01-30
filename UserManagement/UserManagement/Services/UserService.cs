@@ -45,7 +45,6 @@ namespace UserManagement.Services
              return new List<System.Text.RegularExpressions.Group>();
         }
 
-
         public void AddUser(User user)
         {
             if (_context.Users != null)
@@ -130,5 +129,30 @@ namespace UserManagement.Services
 
             return usersPerGroupCount;
         }
+         public void UpdateUser(User updatedUser)
+        {
+            var existingUser = _context.Users.Find(updatedUser.UserId);
+
+            if (existingUser != null)
+            {
+                // Update user properties
+                existingUser.UserName = updatedUser.UserName;
+                existingUser.Groups = updatedUser.Groups; // Update groups if necessary
+                existingUser.Permissions = updatedUser.Permissions; // Update permissions if necessary
+
+                _context.SaveChanges();
+            }
+            // Handle error or validation logic if necessary
+        }
+
+        public User GetUserById(int userId)
+        {
+            return _context.Users
+                .Include(u => u.Groups)  // Include related entities if necessary
+                .Include(u => u.Permissions)
+                .FirstOrDefault(u => u.UserId == userId);
+        }
+
     }
+    
 }
