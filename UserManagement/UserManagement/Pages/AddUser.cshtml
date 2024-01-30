@@ -1,0 +1,31 @@
+@page
+@model UserManagement.Pages.AddUser
+@{
+    ViewData["Title"] = "Add User";
+}
+
+<h2>Add User</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="UserName"></label>
+        <input asp-for="UserName" class="form-control" />
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="GroupId"></label>
+        <select asp-for="GroupId" asp-items="Model.GroupItems"></select>
+        <span asp-validation-for="GroupId"></span>
+    </div>
+    "@*
+    <div class="form-group">
+    <label asp-for="GroupId"></label>
+    <select asp-for="GroupId" asp-items="Model.GroupItems" class="form-control">
+    <option value="">Select a Group</option>
+    </select>
+    <span asp-validation-for="GroupId" class="text-danger"></span>
+    </div>
+    *@
+   
+    <button type="submit" class="btn btn-primary">Add User</button>
+</form>

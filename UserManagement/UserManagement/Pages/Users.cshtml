@@ -1,0 +1,63 @@
+@page
+@model UserManagement.Pages.Users
+@{
+    ViewData["Title"] = "User List";
+}
+
+<h2>Users</h2>
+
+<form method="post" asp-page-handler="AddUser">
+    <div>
+        <label asp-for="NewUser.UserName"></label>
+        <input asp-for="NewUser.UserName" />
+    </div>
+    <div>
+        <label >Group</label>
+        <select asp-for="GroupId" asp-items="Model.GroupItems" class="custom-select"></select>
+    </div>
+    <div>
+        <label>Pemission</label>
+        <select asp-for="SelectedPermissionIds" asp-items="Model.PermissionItems" class="custom-select"></select>
+    </div>
+    <button type="submit">Add User</button>
+</form>
+
+<table class="table mt-5">
+    <thead>
+        <tr>
+            <th scope="col">User ID</th>
+            <th scope="col">User Name</th>
+            <th scope="col">Groups</th>
+            <th scope="col">Permission</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.UserList)
+        {
+            <tr>
+                <td>@user.UserId</td>
+                <td>@user.UserName</td>
+                <td>
+                    @foreach (var group in user.Groups)
+                    {
+                        @group.GroupName
+                    }
+                </td>
+                <td>
+                    @foreach (var permission in user.Permissions)
+                    {
+                        @permission.PermissionName
+                        <br />
+                    }
+                </td>
+               
+                <td>
+                    <form method="post" asp-page-handler="Delete" asp-route-id="@user.UserId">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
