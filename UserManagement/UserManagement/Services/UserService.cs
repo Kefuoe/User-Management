@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using UserManagement.Data;
 using UserManagement.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -70,7 +68,6 @@ namespace UserManagement.Services
             }
         }
 
-
         public async Task<List<User>> GetAllUsersAsync()
         {
             //     return await _context.Users
@@ -116,5 +113,22 @@ namespace UserManagement.Services
                 .ToList();
         }
 
+        public int GetUserCount()
+        {
+            return _context.Users.Count();
+        }
+
+        public Dictionary<string, int> GetUsersPerGroupCount()
+        {
+            var usersPerGroupCount = _context.Groups
+                .Select(g => new
+                {
+                    GroupName = g.GroupName,
+                    UserCount = g.Users.Count()
+                })
+                .ToDictionary(x => x.GroupName, x => x.UserCount);
+
+            return usersPerGroupCount;
+        }
     }
 }

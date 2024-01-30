@@ -6,6 +6,43 @@
 
 <h2>Users</h2>
 
+<div id="userCount">User Count: <span id="userCountValue"></span></div>
+
+<!-- Display users per group count -->
+<div>
+    Users Per Group Count:
+    <ul id="usersPerGroupCount"></ul>
+</div>
+
+<!-- JavaScript code to fetch and update counts -->
+<script>
+    fetch('/Users?handler=UserCount')
+        .then(response => response.json())
+        .then(data => {
+            console.log('Received data:', data);
+            document.getElementById('userCountValue').innerText = data.userCount;
+        })
+        .catch(error => {
+            console.error('Error fetching user count:', error);
+        });
+</script>
+<script>
+    fetch('/Users?handler=UsersPerGroupCount')
+        .then(response => response.json())
+        .then(data => {
+            let usersPerGroupCountElement = document.getElementById('usersPerGroupCount');
+            usersPerGroupCountElement.innerHTML = '';
+            for (const [groupName, count] of Object.entries(data)) {
+                let listItem = document.createElement('li');
+                listItem.textContent = `${groupName}: ${count} users`;
+                usersPerGroupCountElement.appendChild(listItem);
+            }
+        });
+</script>
+    
+
+
+
 <form method="post" asp-page-handler="AddUser">
     <div>
         <label asp-for="NewUser.UserName"></label>
@@ -51,7 +88,6 @@
                         <br />
                     }
                 </td>
-               
                 <td>
                     <form method="post" asp-page-handler="Delete" asp-route-id="@user.UserId">
                         <button class="btn btn-danger">Delete</button>
@@ -61,3 +97,4 @@
         }
     </tbody>
 </table>
+

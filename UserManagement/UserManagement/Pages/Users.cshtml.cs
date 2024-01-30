@@ -11,25 +11,25 @@ namespace UserManagement.Pages
     public class Users : PageModel
     {
      
-            private readonly UserService _service;
-            public List<User> UserList { get; set; }
-            public List<SelectListItem> GroupItems { get; set; }
-            public List<SelectListItem> PermissionItems { get; set; }
+        private readonly UserService _service;
+        public List<User> UserList { get; set; }
+        public List<SelectListItem> GroupItems { get; set; }
+        public List<SelectListItem> PermissionItems { get; set; }
 
-            [BindProperty]
-            public User NewUser { get; set; } = new User();
+        [BindProperty]
+        public User NewUser { get; set; } = new User();
 
-            [BindProperty]
-            public int GroupId { get; set; }
+        [BindProperty]
+        public int GroupId { get; set; }
 
-            [BindProperty]
-            public List<int> SelectedPermissionIds { get; set; } 
+        [BindProperty]
+        public List<int> SelectedPermissionIds { get; set; } 
 
 
-            public Users(UserService service)
-            {
-                _service = service;
-            }
+        public Users(UserService service)
+        {
+            _service = service;
+        }
 
         public void OnGetGroups()
         {
@@ -41,9 +41,10 @@ namespace UserManagement.Pages
         {
             //UserList = _service.GetUsers();
             UserList = await _service.GetAllUsersAsync();
+            Console.WriteLine($"UserList Count: {UserList?.Count}");
+            ViewData["UserCount"] = UserList?.Count;
             OnGetGroups();
         }
-
 
         public IActionResult OnPostDelete(int id)
         {
@@ -66,6 +67,18 @@ namespace UserManagement.Pages
             return RedirectToPage("Users");
         }
 
+
+        public JsonResult OnGetUserCount()
+        {
+            var userCount = _service.GetUserCount();
+            return new JsonResult(new { UserCount = userCount });
+        }
+
+        public JsonResult OnGetUsersPerGroupCount()
+        {
+            var usersPerGroupCount = _service.GetUsersPerGroupCount();
+            return new JsonResult(usersPerGroupCount);
+        }
     }
 
 }
