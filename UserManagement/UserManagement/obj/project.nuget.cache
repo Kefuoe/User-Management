@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hmDCg3Ftyt6cEuE7mBHXg+TuWk3oRtQc+a7ny9PS3IqJtpXfJVkdZ8pJak+T7MWa592mqRvdG+5wqUmYKHtcOQ==",
+  "dgSpecHash": "JyIaZFt805VSo1LOoq2ae//yCYd5+rDF+mFmDv07RzeH9S0U504znOs7K/ymJDwzkHVp4bGO9AeIWry9wbY1Og==",
   "success": true,
-  "projectFilePath": "C:\\Users\\kefuoe.mofoka\\Documents\\CodeFirst\\User-Management\\UserManagement\\UserManagement\\UserManagement.csproj",
+  "projectFilePath": "C:\\Users\\kefuoe.mofoka\\Documents\\Mofoka\\CodeFirst\\User-Management\\UserManagement\\UserManagement\\UserManagement.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kefuoe.mofoka\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\kefuoe.mofoka\\.nuget\\packages\\microsoft.data.sqlite.core\\7.0.9\\microsoft.data.sqlite.core.7.0.9.nupkg.sha512",

@@ -44,22 +44,25 @@
 
 
 <form method="post" asp-page-handler="AddUser">
-    <div>
-        <label asp-for="NewUser.UserName"></label>
-        <input asp-for="NewUser.UserName" />
+    <div class="form-group">
+        <label asp-for="NewUser.UserName" class=" control-label"></label>
+        <input asp-for="NewUser.UserName" class="form-control" />
+        <span asp-validation-for="NewUser.UserName" class="text-danger"></span>
     </div>
-    <div>
-        <label >Group</label>
-        <select asp-for="GroupId" asp-items="Model.GroupItems" class="custom-select"></select>
+    <div class="form-group">
+        <label class="control-label">Group</label>
+        <select asp-for="GroupId" asp-items="Model.GroupItems" class="form-control" id="GroupItems"></select>
     </div>
-    <div>
-        <label>Pemission</label>
-        <select asp-for="SelectedPermissionIds" asp-items="Model.PermissionItems" class="custom-select"></select>
+    <div class="form-group">
+        <label class="control-label">Pemission</label>
+        <select asp-for="SelectedPermissionIds" asp-items="Model.PermissionItems" class="form-control" id="PermissionItems"></select>
+    </div> 
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Add User" />
     </div>
-    <button type="submit">Add User</button>
 </form>
 
-<table class="table mt-5">
+<table class="table mt-5"> 
     <thead>
         <tr>
             <th scope="col">User ID</th>

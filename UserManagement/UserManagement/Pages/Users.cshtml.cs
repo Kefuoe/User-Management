@@ -25,7 +25,7 @@ namespace UserManagement.Pages
         [BindProperty]
         public List<int> SelectedPermissionIds { get; set; } 
 
-        [BindProperty]
+      
         public User UserToUpdate { get; set; }
 
 
